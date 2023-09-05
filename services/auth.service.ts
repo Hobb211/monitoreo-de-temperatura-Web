@@ -1,10 +1,12 @@
 import axios from "axios";
 import { userLogin, userRegister } from "@/types";
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const API_URL = "http://localhost:3000/api/auth/";
 
 class AuthService {
-  async login(userlogin: userLogin) {
+  
+  async login(userlogin: userLogin){
     const { email, password } = userlogin;
     return axios
       .post(API_URL + "login", {
