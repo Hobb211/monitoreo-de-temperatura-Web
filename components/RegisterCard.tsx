@@ -31,8 +31,8 @@ export default function RegisterCard() {
 
   return (
     <div className="h-screen">
-      <div className="relative flex flex-col items-center justify-center overflow-hidden pt-64">
-        <div className="w-full p-8 bg-cyan-100 rounded-md shadow-md lg:max-w-xl pt-20">
+      <div className="relative flex flex-col items-center justify-center overflow-hidden pt-36">
+        <div className="w-96 p-8 bg-cyan-100 rounded-md shadow-md lg:max-w-xl pt-20">
           <h1 className="text-3xl font-bold text-center text-gray-900">
             Register
           </h1>
