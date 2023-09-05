@@ -1,21 +1,10 @@
-<<<<<<< HEAD
-"use client"
-=======
 "use client";
->>>>>>> 5f7ab047a5d45d49d7d27747735e3bc2afa000fd
 
 import NavBar from "@/components/NavBar";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
-<<<<<<< HEAD
-import { Provider } from 'react-redux'
-import store from '../redux/store'
-=======
-import { Provider } from "react-redux";
-import { store } from "../redux/store";
->>>>>>> 5f7ab047a5d45d49d7d27747735e3bc2afa000fd
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,17 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider store={store}>
-<<<<<<< HEAD
         <NavBar />
         {children}
         <Footer />
-=======
-          <NavBar />
-          {children}
-          <Footer />
->>>>>>> 5f7ab047a5d45d49d7d27747735e3bc2afa000fd
-        </Provider>
       </body>
     </html>
   );
