@@ -1,26 +1,28 @@
 "use client";
 
-import authService from "@/services/auth.service";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { RootState } from "@/redux/store";
+import { authlogout } from "@/redux/features/auth.slice";
 
 export default function NavBar() {
-  const [currentUserEmail, setcurrentUserEmail] = React.useState("");
-  const [isUserActive, setisUserActive] = React.useState(false);
+  const [isLoggin, setisLoggin] = React.useState(false);
+  const userEmail = useAppSelector(
+    (state: RootState) => state.authentication.userInfo?.email
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect((): void => {
+    if (userEmail) {
+      setisLoggin(true);
+    }
+  }, [userEmail]);
 
   const router = useRouter();
 
-  React.useEffect(() => {
-    const storageUser = authService.getCurrentUser();
-    const isActive = localStorage.getItem("isLogin");
-    if (storageUser && isActive == "true") {
-      setisUserActive(true);
-      setcurrentUserEmail(storageUser.email);
-    }
-  }, []);
-
   const logout = () => {
-    authService.logout();
+    dispatch(authlogout());
     router.push("/");
   };
 
@@ -58,19 +60,19 @@ export default function NavBar() {
         </button>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            {isUserActive ? (
+            {isLoggin ? (
               <>
                 <li>
                   <a
                     href="#"
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
-                    {currentUserEmail}
+                    {userEmail}
                   </a>
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="#"
                     onClick={logout}
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
@@ -79,14 +81,7 @@ export default function NavBar() {
                 </li>
               </>
             ) : (
-              <li>
-                <a
-                  href="/"
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Login
-                </a>
-              </li>
+              <button>Login</button>
             )}
           </ul>
         </div>

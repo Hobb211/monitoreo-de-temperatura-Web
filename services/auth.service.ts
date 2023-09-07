@@ -1,12 +1,10 @@
 import axios from "axios";
-import { userLogin, userRegister } from "@/types";
-import { createAsyncThunk } from '@reduxjs/toolkit'
+import { Auth, userRegister } from "@/types";
 
 const API_URL = "http://localhost:3000/api/auth/";
 
 class AuthService {
-  
-  async login(userlogin: userLogin){
+  async login(userlogin: Auth) {
     const { email, password } = userlogin;
     return axios
       .post(API_URL + "login", {
@@ -14,10 +12,6 @@ class AuthService {
         password,
       })
       .then((response) => {
-        if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-          localStorage.setItem("isLogin", "true");
-        }
         return response.data;
       });
   }
@@ -41,12 +35,6 @@ class AuthService {
         }
         return response.data;
       });
-  }
-
-  getCurrentUser() {
-    const userStr = localStorage.getItem("user");
-    if (userStr) return JSON.parse(userStr);
-    return null;
   }
 }
 

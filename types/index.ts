@@ -1,17 +1,11 @@
-export interface userLogin {
+export interface Auth {
   email: string;
   password: string;
 }
 
-export interface loginResponse {
+export interface User {
   email: string;
   token: string;
-}
-
-export interface loginErrorResponse {
-  message: string;
-  error: string;
-  statusCode: number;
 }
 
 export interface userRegister {

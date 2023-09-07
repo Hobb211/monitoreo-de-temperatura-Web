@@ -3,31 +3,34 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { userLogin } from "@/types";
+import { Auth } from "@/types";
 import { useRouter } from "next/navigation";
-import authService from "@/services/auth.service";
 import { Alert, Button } from "@material-tailwind/react";
+import { useAppDispatch } from "@/redux/hooks";
+import { authLogin } from "@/redux/features/auth.slice";
 
 export default function LoginCard() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<userLogin>();
+  } = useForm<Auth>();
   const [errorMessage, setErrorMessage] = React.useState("");
-
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const onSubmit = handleSubmit(async (data) => {
-    await authService.login(data).then(
-      (response) => {
-        router.push("/user");
-      },
-      (error) => {
-        setErrorMessage(error.response.data.message);
-      }
-    );
+    const response = await dispatch(authLogin(data));
+    if (response.token) {
+      router.push("/user");
+    } else {
+      setErrorMessage(response.response.data.message);
+    }
   });
+
+  // const onSubmit = handleSubmit(async (data) => {
+  //   const response = await dispatch(authLogin(data));
+  // });
 
   return (
     <div className="h-screen">
