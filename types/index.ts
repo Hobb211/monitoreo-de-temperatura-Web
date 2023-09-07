@@ -13,3 +13,11 @@ export interface userRegister {
   email: string;
   password: string;
 }
+
+export interface asignatura {
+  id: number;
+  titulo: string;
+  instructor: string;
+  sala: string;
+  nrc: number;
+}

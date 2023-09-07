@@ -1,28 +1,17 @@
 "use client";
 
-import authService from "@/services/auth.service";
-import { useRouter } from "next/navigation";
+import userService from "@/services/user.service";
 import * as React from "react";
 
-export default function Home() {
-  const [userEmail, setuserEmail] = React.useState("");
-  const router = useRouter();
+export default function User() {
+  const [userAsignaturas, setuserAsignaturas] = React.useState([]);
 
-  // React.useEffect(() => {
-  //   const storageUser = authService.getCurrentUser();
-  //   if (storageUser) {
-  //     console.log(storageUser.email);
-  //   }
-  // }, []);
-
-  const products = [
-    { name: "Arquitectura de Plataformas", color: "Blue", price: 13 },
-    { name: "Sistemas de Informacion II", color: "Red", price: 12 },
-    { name: "Bases de Datos No Relacional", color: "Red", price: 12 },
-    { name: "Proyecto Integrador", color: "Red", price: 12 },
-    { name: "Desarrollo Web/Movil", color: "Red", price: 12 },
-    { name: "Gestion de la Innovasion", color: "Red", price: 12 },
-  ];
+  React.useEffect(() => {
+    userService.getUserAsignaturas().then((response) => {
+      console.log(response);
+      setuserAsignaturas(response);
+    });
+  }, []);
 
   return (
     <div className="pt-20 min-h-screen max-h-full">
@@ -37,16 +26,17 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-2 pt-20 sm:mb-98">
-          {products.map((product) => (
-            <a key={product.name} href={""} className="group">
+          {userAsignaturas.map((asignatura) => (
+            <a key={asignatura.id} href={""} className="group">
               <div className="rounded-lg bg-cyan-100 xl:aspect-h-8 xl:aspect-w-7 h-64 hover:bg-cyan-50">
                 <div className="pt-28 flex items-center justify-center ">
-                  {product.name}
+                  {asignatura.titulo}
                 </div>
               </div>
             </a>
           ))}
         </div>
+
         <div className="flex justify-end ... pt-24">
           <button
             type="submit"

@@ -22,6 +22,7 @@ export default function NavBar() {
   const router = useRouter();
 
   const logout = () => {
+    setisLoggin(false);
     dispatch(authlogout());
     router.push("/");
   };

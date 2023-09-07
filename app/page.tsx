@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
-import { getUserFromLocalStorage } from "@/redux/services/persistUser.service";
 
 export default function Home() {
   const router = useRouter();
@@ -13,13 +12,11 @@ export default function Home() {
     (state: RootState) => state.authentication.userInfo?.email
   );
 
-  const user = getUserFromLocalStorage()?.token;
-
   useEffect((): void => {
-    if (userEmail || user) {
+    if (userEmail) {
       router.push("/user");
     }
-  }, [userEmail, user]);
+  }, [userEmail]);
 
   return <LoginCard></LoginCard>;
 }
