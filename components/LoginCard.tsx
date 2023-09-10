@@ -72,14 +72,14 @@ export default function LoginCard() {
             <div className="mt-12">
               <button
                 type="submit"
-                className="bg-gray-900 w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-900 h-12"
+                className="justify-center items-center flex bg-gray-900 w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-900 h-12"
                 disabled={isloading}
               >
-                {isloading && (
+                {isloading ? (
                   <div role="status">
                     <svg
                       aria-hidden="true"
-                      className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                      className="w-8 h-8 mr-2 text-gray-100 animate-spin dark:text-gray-100 fill-gray-600 dark:fill-gray-100"
                       viewBox="0 0 100 101"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -90,10 +90,8 @@ export default function LoginCard() {
                       />
                     </svg>
                   </div>
-                )}
-                <span>Login</span>
+                ) : ( <div>Login</div> )}
               </button>
-
               {errorMessage && (
                 <div className="mt-4">
                   <Alert color="red">{errorMessage}</Alert>

@@ -66,6 +66,19 @@ export const authLogin = (userData: any) => async (dispatch: any) => {
   }
 };
 
+export const authRegister = (userData: any) => async (dispatch: any) => {
+  try {
+    dispatch(request());
+    const authData = await authService.register(userData);
+    dispatch(success(authData));
+    setUserLocalStorage(authData);
+    return authData;
+  } catch (error: any) {
+    dispatch(fail(error.response.data.message));
+    return error;
+  }
+};
+
 export const authlogout = () => async (dispatch: any) => {
   dispatch(logout());
   removeUserFromLocalStorage();
