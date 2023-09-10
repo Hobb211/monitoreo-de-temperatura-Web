@@ -16,10 +16,6 @@ class AuthService {
       });
   }
 
-  logout() {
-    localStorage.removeItem("user");
-  }
-
   async register(userRegister: userRegister) {
     const { fullName, email, password } = userRegister;
     return axios
@@ -35,6 +31,10 @@ class AuthService {
         }
         return response.data;
       });
+  }
+
+  logout() {
+    localStorage.removeItem("user");
   }
 }
 

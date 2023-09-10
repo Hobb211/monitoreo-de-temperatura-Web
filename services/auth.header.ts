@@ -1,3 +1,5 @@
+"use client";
+
 import { getUserFromLocalStorage } from "@/redux/services/persistUser.service";
 
 export default function authHeader() {

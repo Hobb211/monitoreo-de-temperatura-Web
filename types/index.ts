@@ -14,8 +14,15 @@ export interface userRegister {
   password: string;
 }
 
-export interface asignatura {
+export interface Asignatura {
   id: number;
+  titulo: string;
+  instructor: string;
+  sala: string;
+  nrc: number;
+}
+
+export interface CreateAsignatura {
   titulo: string;
   instructor: string;
   sala: string;

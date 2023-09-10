@@ -24,7 +24,7 @@ export default function NavBar() {
   const logout = () => {
     setisLoggin(false);
     dispatch(authlogout());
-    router.push("/");
+    router.push("/login");
   };
 
   return (
@@ -66,23 +66,44 @@ export default function NavBar() {
                 <li>
                   <a
                     href="#"
-                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    className="bg-cyan-100 active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+                    type="button"
                   >
                     {userEmail}
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/"
                     onClick={logout}
-                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    className="bg-gray-900 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none  mb-1 ease-linear transition-all duration-150"
+                    type="button"
                   >
                     Logout
                   </a>
                 </li>
               </>
             ) : (
-              <button>Login</button>
+              <>
+                <li>
+                  <a
+                    href="/"
+                    className="bg-cyan-100  active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                  >
+                    Login
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/register"
+                    className="bg-cyan-100  active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                  >
+                    Register
+                  </a>
+                </li>
+              </>
             )}
           </ul>
         </div>
