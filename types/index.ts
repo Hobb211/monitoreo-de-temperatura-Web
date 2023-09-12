@@ -26,5 +26,7 @@ export interface CreateAsignatura {
   titulo: string;
   instructor: string;
   sala: string;
-  nrc: number;
+  nrc: string;
+  userEmail: string;
 }
+

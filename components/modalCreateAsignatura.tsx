@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { CreateAsignatura } from "@/types";
 
-export default function ModalCreateAsigatura({ closeModalCreate }: any) {
+export default function ModalCreateAsigatura({ closeModalCreate, crearAsignatura }: any) {
   const [errorMessage, setErrorMessage] = React.useState("");
   const {
     register,
@@ -10,7 +10,9 @@ export default function ModalCreateAsigatura({ closeModalCreate }: any) {
     formState: { errors },
   } = useForm<CreateAsignatura>();
 
-  const onSubmit = handleSubmit(async (data) => {});
+  const onSubmit = handleSubmit(async (data) => {
+    crearAsignatura(data);
+  });
 
   return (
     <>
@@ -60,30 +62,30 @@ export default function ModalCreateAsigatura({ closeModalCreate }: any) {
                     nrc
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     {...register("nrc", { required: true })}
                     className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                   {errors.nrc && <span>Field is a required</span>}
                 </div>
+
+                {/*footer*/}
+                <div className="flex items-center justify-end  border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="bg-cyan-100 text-black active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="submit"
+                  >
+                    Agregar
+                  </button>
+                  <button
+                    onClick={() => closeModalCreate(false)}
+                    className="bg-gray-900 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                  >
+                    Cancelar
+                  </button>
+                </div>
               </form>
-            </div>
-            {/*footer*/}
-            <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-              <button
-                onClick={() => closeModalCreate(false)}
-                className="bg-cyan-100 text-black active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                Agregar
-              </button>
-              <button
-                onClick={() => closeModalCreate(false)}
-                className="bg-gray-900 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                Cancelar
-              </button>
             </div>
           </div>
         </div>

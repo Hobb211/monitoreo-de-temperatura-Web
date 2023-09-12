@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { CreateAsignatura } from "@/types";
+import { Asignatura, CreateAsignatura } from "@/types";
+import userService from "@/services/user.service";
 
-export default function ModalDeletedAsigatura({ closeModalDelete }: any) {
+export default function ModalDeletedAsigatura({ closeModalDelete, eliminarAsignatura }: any) {
+  const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>([]);
   const [errorMessage, setErrorMessage] = React.useState("");
   const {
     register,
@@ -10,7 +12,15 @@ export default function ModalDeletedAsigatura({ closeModalDelete }: any) {
     formState: { errors },
   } = useForm<CreateAsignatura>();
 
-  const onSubmit = handleSubmit(async (data) => {});
+  React.useEffect(() => {
+    userService.getUserAsignaturas().then((response) => {
+      setuserAsignaturas(response);
+    });
+  }, []);
+
+  const onSubmit = handleSubmit(async (data) => {
+    eliminarAsignatura(data);
+  });
 
   return (
     <>
@@ -33,25 +43,24 @@ export default function ModalDeletedAsigatura({ closeModalDelete }: any) {
                   />
                   {errors.titulo && <span>Field is a required</span>}
                 </div>
+                <div className="flex items-center justify-end border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="bg-cyan-100 text-black active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="submit"
+                  >
+                    Eliminar
+                  </button>
+                  <button
+                    onClick={() => closeModalDelete(false)}
+                    className="bg-gray-900 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                  >
+                    Cancelar
+                  </button>
+                </div>
               </form>
             </div>
-            {/*footer*/}
-            <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-              <button
-                onClick={() => closeModalDelete(false)}
-                className="bg-cyan-100 text-black active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                Eliminar
-              </button>
-              <button
-                onClick={() => closeModalDelete(false)}
-                className="bg-gray-900 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                Cancelar
-              </button>
-            </div>
+
           </div>
         </div>
       </div>
