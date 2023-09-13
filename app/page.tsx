@@ -11,9 +11,12 @@ export default function Home() {
   const userEmail = useAppSelector(
     (state: RootState) => state.authentication.userInfo?.email
   );
+  const accestoken = useAppSelector(
+    (state: RootState) => state.authentication.userInfo?.token
+  );
 
   useEffect((): void => {
-    if (userEmail) {
+    if (userEmail && accestoken) {
       router.push("/user");
     }
   }, [userEmail]);
