@@ -39,9 +39,9 @@ export default function ModalDeletedAsigatura({
               <form onSubmit={onSubmit}>
                 <div className="mb-6">
                   <div className="w-72">
-                    <select {...register("titulo")}>
+                    <select aria-label="Asignaturas" {...register("id")}>
                       {userAsignaturas.map((asignatura) => (
-                        <option key={asignatura.id} value={asignatura.titulo}>
+                        <option key={asignatura.id} value={asignatura.id}>
                           {asignatura.titulo}
                         </option>
                       ))}

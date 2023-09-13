@@ -31,5 +31,5 @@ export interface CreateAsignatura {
 }
 
 export interface EliminarAsignatura {
-  titulo: string;
+  id: number;
 }

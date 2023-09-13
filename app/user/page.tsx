@@ -4,8 +4,9 @@ import ModalCreateAsigatura from "@/components/modalCreateAsignatura";
 import ModalDeletedAsigatura from "@/components/modalDeleteAsignatura";
 import userService from "@/services/user.service";
 import * as React from "react";
-import { Asignatura, CreateAsignatura } from "@/types";
+import { Asignatura, CreateAsignatura, EliminarAsignatura } from "@/types";
 import asignaturaService from "@/services/asignatura.service";
+import { throws } from "assert";
 
 export default function User() {
   const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>(
@@ -13,7 +14,6 @@ export default function User() {
   );
   const [showModalCreate, setShowModalCreate] = React.useState(false);
   const [showModalDelete, setShowModalDelete] = React.useState(false);
-  const [datos, setDatos] = React.useState<CreateAsignatura>();
 
   React.useEffect(() => {
     userService.getUserAsignaturas().then((response) => {
@@ -37,11 +37,21 @@ export default function User() {
     setShowModalCreate(false);
   };
 
-  const eliminarAsignatura = (dataAsignatura: CreateAsignatura) => {
-    console.log(dataAsignatura);
-    const resp = asignaturaService.eliminarAsignatura();
-    console.log(resp);
-    setShowModalDelete(false);
+  const eliminarAsignatura = async (dataAsignatura: EliminarAsignatura) => {
+    const idAsignatura = dataAsignatura.id;
+    try {
+      const AsignaturaDeleted = await asignaturaService.eliminarAsignatura(
+        idAsignatura
+      );
+      setuserAsignaturas(
+        userAsignaturas.filter(
+          (asignatura) => asignatura.id !== AsignaturaDeleted.id
+        )
+      );
+      setShowModalDelete(false);
+    } catch (error) {
+      console.log("Error en la Eliminacion de la asignatura");
+    }
   };
 
   const closeModalDelete = () => {
