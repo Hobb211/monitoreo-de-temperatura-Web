@@ -1,12 +1,10 @@
 "use client";
-
 import ModalCreateAsigatura from "@/components/modalCreateAsignatura";
 import ModalDeletedAsigatura from "@/components/modalDeleteAsignatura";
 import userService from "@/services/user.service";
 import * as React from "react";
 import { Asignatura, CreateAsignatura, EliminarAsignatura } from "@/types";
 import asignaturaService from "@/services/asignatura.service";
-import { throws } from "assert";
 
 export default function User() {
   const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>(
@@ -79,7 +77,11 @@ export default function User() {
         {userAsignaturas.length > 0 ? (
           <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-2 pt-20 sm:mb-98">
             {userAsignaturas.map((asignatura: Asignatura) => (
-              <a key={asignatura.id} href={""} className="group">
+              <a
+                key={asignatura.id}
+                href={"/user/asignatura"}
+                className="group"
+              >
                 <div className="rounded-lg bg-cyan-100 xl:aspect-h-8 xl:aspect-w-7 h-64 hover:bg-cyan-50">
                   <div className="pt-28 flex items-center justify-center ">
                     {asignatura.titulo}
