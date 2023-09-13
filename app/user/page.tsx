@@ -8,7 +8,9 @@ import { Asignatura, CreateAsignatura } from "@/types";
 import asignaturaService from "@/services/asignatura.service";
 
 export default function User() {
-  const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>([]);
+  const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>(
+    []
+  );
   const [showModalCreate, setShowModalCreate] = React.useState(false);
   const [showModalDelete, setShowModalDelete] = React.useState(false);
   const [datos, setDatos] = React.useState<CreateAsignatura>();
@@ -22,24 +24,25 @@ export default function User() {
   const crearAsignatura = async (dataAsignatura: CreateAsignatura) => {
     try {
       const resp = await asignaturaService.createAsignatura(dataAsignatura);
-      const { usuario, ...asignaturaDetail} = resp
+      const { usuario, ...asignaturaDetail } = resp;
       setuserAsignaturas([...userAsignaturas, asignaturaDetail]);
       setShowModalCreate(false);
       // console.log("Asignatura creada", asignaturaDetail.titulo);
     } catch (error) {
       console.log("Error en la creacion de la asignatura");
     }
-  }
+  };
 
   const closeModalCreate = () => {
     setShowModalCreate(false);
   };
 
   const eliminarAsignatura = (dataAsignatura: CreateAsignatura) => {
+    console.log(dataAsignatura);
     const resp = asignaturaService.eliminarAsignatura();
     console.log(resp);
     setShowModalDelete(false);
-  }
+  };
 
   const closeModalDelete = () => {
     setShowModalDelete(false);
@@ -56,7 +59,10 @@ export default function User() {
             Agregar Asignatura
           </button>
           {showModalCreate ? (
-            <ModalCreateAsigatura closeModalCreate={closeModalCreate} crearAsignatura={crearAsignatura} />
+            <ModalCreateAsigatura
+              closeModalCreate={closeModalCreate}
+              crearAsignatura={crearAsignatura}
+            />
           ) : null}
         </div>
 
@@ -67,6 +73,9 @@ export default function User() {
                 <div className="rounded-lg bg-cyan-100 xl:aspect-h-8 xl:aspect-w-7 h-64 hover:bg-cyan-50">
                   <div className="pt-28 flex items-center justify-center ">
                     {asignatura.titulo}
+                  </div>
+                  <div className="pt-2 flex items-center justify-center ">
+                    {asignatura.sala}
                   </div>
                 </div>
               </a>
@@ -87,7 +96,10 @@ export default function User() {
               Eliminar Asignatura
             </button>
             {showModalDelete ? (
-              <ModalDeletedAsigatura closeModalDelete={closeModalDelete} eliminarAsignatura={eliminarAsignatura} />
+              <ModalDeletedAsigatura
+                closeModalDelete={closeModalDelete}
+                eliminarAsignatura={eliminarAsignatura}
+              />
             ) : null}
           </div>
         ) : null}

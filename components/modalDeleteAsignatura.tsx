@@ -1,16 +1,21 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import { Asignatura, CreateAsignatura } from "@/types";
+import { Asignatura, EliminarAsignatura } from "@/types";
 import userService from "@/services/user.service";
+import { useForm } from "react-hook-form";
 
-export default function ModalDeletedAsigatura({ closeModalDelete, eliminarAsignatura }: any) {
-  const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>([]);
+export default function ModalDeletedAsigatura({
+  closeModalDelete,
+  eliminarAsignatura,
+}: any) {
+  const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>(
+    []
+  );
   const [errorMessage, setErrorMessage] = React.useState("");
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateAsignatura>();
+  } = useForm<EliminarAsignatura>();
 
   React.useEffect(() => {
     userService.getUserAsignaturas().then((response) => {
@@ -31,28 +36,28 @@ export default function ModalDeletedAsigatura({ closeModalDelete, eliminarAsigna
               <h3 className="text-3xl font-semibold">Eliminar Asignatura</h3>
             </div>
             <div className="relative p-6 flex-auto">
-              <form onSubmit={onSubmit} className="mt-6">
-                <div className="mb-4">
-                  <label className="block text-sm font-semibold text-gray-900">
-                    Seleccionar
-                  </label>
-                  <input
-                    type="text"
-                    {...register("titulo", { required: true })}
-                    className="block w-full px-4 py-2 mt-2 text-gray-900 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                  {errors.titulo && <span>Field is a required</span>}
+              <form onSubmit={onSubmit}>
+                <div className="mb-6">
+                  <div className="w-72">
+                    <select {...register("titulo")}>
+                      {userAsignaturas.map((asignatura) => (
+                        <option key={asignatura.id} value={asignatura.titulo}>
+                          {asignatura.titulo}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
                 <div className="flex items-center justify-end border-t border-solid border-slate-200 rounded-b">
                   <button
-                    className="bg-cyan-100 text-black active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-cyan-100 text-black active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-6"
                     type="submit"
                   >
                     Eliminar
                   </button>
                   <button
                     onClick={() => closeModalDelete(false)}
-                    className="bg-gray-900 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-gray-900 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-6"
                     type="button"
                   >
                     Cancelar
@@ -60,7 +65,6 @@ export default function ModalDeletedAsigatura({ closeModalDelete, eliminarAsigna
                 </div>
               </form>
             </div>
-
           </div>
         </div>
       </div>
