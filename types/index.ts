@@ -30,3 +30,6 @@ export interface CreateAsignatura {
   userEmail: string;
 }
 
+export interface EliminarAsignatura {
+  id: number;
+}

@@ -2,7 +2,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { CreateAsignatura } from "@/types";
 
-export default function ModalCreateAsigatura({ closeModalCreate, crearAsignatura }: any) {
+export default function ModalCreateAsigatura({
+  closeModalCreate,
+  crearAsignatura,
+}: any) {
   const [errorMessage, setErrorMessage] = React.useState("");
   const {
     register,
@@ -23,7 +26,7 @@ export default function ModalCreateAsigatura({ closeModalCreate, crearAsignatura
               <h3 className="text-3xl font-semibold">Agregar Asignatura</h3>
             </div>
             <div className="relative p-6 flex-auto">
-              <form onSubmit={onSubmit} className="mt-6">
+              <form onSubmit={onSubmit}>
                 <div className="mb-4">
                   <label className="block text-sm font-semibold text-gray-900">
                     Titulo
@@ -70,16 +73,16 @@ export default function ModalCreateAsigatura({ closeModalCreate, crearAsignatura
                 </div>
 
                 {/*footer*/}
-                <div className="flex items-center justify-end  border-t border-solid border-slate-200 rounded-b">
+                <div className="flex items-center justify-end  border-t border-solid border-slate-200 rounded-b mt-6">
                   <button
-                    className="bg-cyan-100 text-black active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-cyan-100 text-black active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-6"
                     type="submit"
                   >
                     Agregar
                   </button>
                   <button
                     onClick={() => closeModalCreate(false)}
-                    className="bg-gray-900 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="bg-gray-900 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-6"
                     type="button"
                   >
                     Cancelar
