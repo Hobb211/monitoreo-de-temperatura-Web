@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { Auth } from "@/types";
 import { useRouter } from "next/navigation";
-import { Alert, Button } from "@material-tailwind/react";
+import { Alert } from "@material-tailwind/react";
 import { authLogin } from "@/redux/features/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
@@ -90,7 +90,9 @@ export default function LoginCard() {
                       />
                     </svg>
                   </div>
-                ) : ( <div>Login</div> )}
+                ) : (
+                  <div>Login</div>
+                )}
               </button>
               {errorMessage && (
                 <div className="mt-4">
