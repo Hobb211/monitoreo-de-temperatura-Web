@@ -31,8 +31,8 @@ export default function ModalDeletedAsigatura({ closeModalDelete, eliminarAsigna
               <h3 className="text-3xl font-semibold">Eliminar Asignatura</h3>
             </div>
             <div className="relative p-6 flex-auto">
-              <form onSubmit={onSubmit} className="mt-6">
-                <div className="mb-4">
+              <form onSubmit={onSubmit} >
+                <div className="mb-6">
                   <label className="block text-sm font-semibold text-gray-900">
                     Seleccionar
                   </label>
@@ -43,7 +43,7 @@ export default function ModalDeletedAsigatura({ closeModalDelete, eliminarAsigna
                   />
                   {errors.titulo && <span>Field is a required</span>}
                 </div>
-                <div className="flex items-center justify-end border-t border-solid border-slate-200 rounded-b">
+                <div className="flex items-center justify-end border-t border-solid border-slate-200 rounded-b pt-6">
                   <button
                     className="bg-cyan-100 text-black active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="submit"
