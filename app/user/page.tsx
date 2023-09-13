@@ -57,7 +57,7 @@ export default function User() {
   };
 
   return (
-    <div className="pt-20 min-h-screen max-h-full">
+    <div className="pt-2 min-h-screen max-h-full">
       <div className="mx-auto  px-4 py-16 sm:px-8 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex justify-end ...">
           <button
