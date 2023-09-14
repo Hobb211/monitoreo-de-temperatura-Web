@@ -1,10 +1,8 @@
 "use client";
-import ModalCreateAsigatura from "@/components/modalCreateAsignatura";
-import ModalDeletedAsigatura from "@/components/modalDeleteAsignatura";
-import userService from "@/services/user.service";
+
 import * as React from "react";
+import ModalDeletedAsigatura from "@/components/modalDeleteAsignatura";
 import { Asignatura, CreateTarea, EliminarAsignatura } from "@/types";
-import asignaturaService from "@/services/asignatura.service";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -32,6 +30,16 @@ export default function Home() {
   const [showModalCreate, setShowModalCreate] = React.useState(false);
   const [showModalDelete, setShowModalDelete] = React.useState(false);
   const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [asignaturaSelected, setAsignaturaSelected] = React.useState("");
+
+  React.useEffect(() => {
+      const asignaturaStorage = localStorage.getItem("selectedAsignatura");
+      if (asignaturaStorage) {
+        setAsignaturaSelected(asignaturaStorage);
+        console.log(asignaturaSelected);
+      }
+
+  }, []);
 
   // React.useEffect(() => {
   //   userService.getUserAsignaturas().then((response) => {
@@ -104,7 +112,7 @@ export default function Home() {
             onClick={() => setShowModalCreate(true)}
             className="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-600"
           >
-            Agregar Tarea
+            Agregar Tareas
           </button>
           {showModalCreate ? (
             <ModalCreateTarea
@@ -160,3 +168,7 @@ export default function Home() {
     </div>
   );
 }
+function getAsignaturaSelected(arg0: () => void) {
+  throw new Error("Function not implemented.");
+}
+
