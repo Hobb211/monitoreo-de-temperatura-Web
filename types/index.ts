@@ -33,3 +33,9 @@ export interface CreateAsignatura {
 export interface EliminarAsignatura {
   id: number;
 }
+
+export interface CreateTarea {
+  descripcion: string;
+  idAsignatura: number;
+  fechaTermino: Date;
+}

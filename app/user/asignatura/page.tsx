@@ -3,38 +3,35 @@ import ModalCreateAsigatura from "@/components/modalCreateAsignatura";
 import ModalDeletedAsigatura from "@/components/modalDeleteAsignatura";
 import userService from "@/services/user.service";
 import * as React from "react";
-import { Asignatura, CreateAsignatura, EliminarAsignatura } from "@/types";
+import { Asignatura, CreateTarea, EliminarAsignatura } from "@/types";
 import asignaturaService from "@/services/asignatura.service";
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-} from "@material-tailwind/react";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ModalCreateTarea from "@/components/modalCreateTarea";
 
-function Icon({ id, open }: any) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={2}
-      stroke="currentColor"
-      className={`${id === open ? "rotate-180" : ""} h-5 w-5 transition-transform`}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-    </svg>
-  );
-}
+const userAsignaturas = [
+  {
+    titulo: "Hacer backend con graphql",
+    estado: "iniciada",
+    fechaTermino: "20/09/2023",
+  },
+  {
+    titulo: "Hacer Front con graphql",
+    estado: "iniciada",
+    fechaTermino: "20/09/2023",
+  },
+];
 
 export default function Home() {
-  const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>([]);
+  const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>(
+    []
+  );
   const [showModalCreate, setShowModalCreate] = React.useState(false);
   const [showModalDelete, setShowModalDelete] = React.useState(false);
-  const [open, setOpen] = React.useState(0);
-
-  const handleOpen = (value: any) => setOpen(open === value ? 0 : value);
-
-
+  const [expanded, setExpanded] = React.useState<string | false>(false);
 
   // React.useEffect(() => {
   //   userService.getUserAsignaturas().then((response) => {
@@ -42,7 +39,7 @@ export default function Home() {
   //   });
   // }, []);
 
-  // const crearAsignatura = async (dataAsignatura: CreateAsignatura) => {
+  // const crearTarea = async (dataAsignatura: CreateAsignatura) => {
   //   try {
   //     const resp = await asignaturaService.createAsignatura(dataAsignatura);
   //     const { usuario, ...asignaturaDetail } = resp;
@@ -53,6 +50,26 @@ export default function Home() {
   //     console.log("Error en la creacion de la asignatura");
   //   }
   // };
+
+  const crearTarea = async (dataTarea: CreateTarea) => {
+    console.log(dataTarea);
+    setShowModalCreate(false);
+  };
+
+  const userAsignaturass = [
+    {
+      id: 1,
+      titulo: "Hacer backend con graphql",
+      estado: "iniciada",
+      fechaTermino: "20/09/2023",
+    },
+    {
+      id: 2,
+      titulo: "Hacer Front con graphql",
+      estado: "iniciada",
+      fechaTermino: "20/09/2023",
+    },
+  ];
 
   const closeModalCreate = () => {
     setShowModalCreate(false);
@@ -90,43 +107,31 @@ export default function Home() {
             Agregar Tarea
           </button>
           {showModalCreate ? (
-            <ModalCreateAsigatura
+            <ModalCreateTarea
               closeModalCreate={closeModalCreate}
-            // crearAsignatura={crearAsignatura}
+              crearTarea={crearTarea}
             />
           ) : null}
         </div>
 
-        <>
-          <div className="pt-20">
-            <Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-              <AccordionHeader onClick={() => handleOpen(1)}>Hacer Login Con graphql</AccordionHeader>
-              <AccordionBody>
-                We&apos;re not always in the position that we want to be at. We&apos;re constantly
-                growing. We&apos;re constantly making mistakes. We&apos;re constantly trying to express
-                ourselves and actualize our dreams.
-              </AccordionBody>
-            </Accordion>
-          </div>
-        </>
-
-        {userAsignaturas.length > 0 ? (
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-2 pt-20 sm:mb-98">
-            {userAsignaturas.map((asignatura: Asignatura) => (
-              <a
-                key={asignatura.id}
-                href={"/user/asignatura"}
-                className="group"
-              >
-                <div className="rounded-lg bg-cyan-100 xl:aspect-h-8 xl:aspect-w-7 h-64 hover:bg-cyan-50">
-                  <div className="pt-28 flex items-center justify-center ">
+        {userAsignaturass.length > 0 ? (
+          <div className="mt-6">
+            {userAsignaturass?.map((asignatura) => (
+              <Accordion key={asignatura.id}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1bh-content"
+                  id="panel1bh-header"
+                >
+                  <Typography sx={{ width: "50%", flexShrink: 0 }}>
                     {asignatura.titulo}
-                  </div>
-                  <div className="pt-2 flex items-center justify-center ">
-                    {asignatura.sala}
-                  </div>
-                </div>
-              </a>
+                  </Typography>
+                  <Typography sx={{ color: "text.secondary" }}>
+                    {asignatura.estado}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>{asignatura.estado}</AccordionDetails>
+              </Accordion>
             ))}
           </div>
         ) : (
@@ -146,7 +151,7 @@ export default function Home() {
             {showModalDelete ? (
               <ModalDeletedAsigatura
                 closeModalDelete={closeModalDelete}
-              // eliminarAsignatura={eliminarAsignatura}
+                // eliminarAsignatura={eliminarAsignatura}
               />
             ) : null}
           </div>
