@@ -4,6 +4,7 @@ import { CreateTarea } from "@/types";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 export default function ModalCreateTarea({
   closeModalCreate,
@@ -18,8 +19,9 @@ export default function ModalCreateTarea({
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   const onSubmit = handleSubmit(async (data) => {
-    data.fechaTermino = selectedDate;
-    crearTarea(data, selectedDate);
+    let formatter = moment(selectedDate).format("yyyy-MM-DD");
+    data.fechaTermino = formatter;
+    crearTarea(data);
   });
 
   return (
@@ -52,8 +54,7 @@ export default function ModalCreateTarea({
                       selected={selectedDate}
                       onChange={(date: Date) => setSelectedDate(date)}
                       minDate={new Date()} // minimum selectable date is today
-                      maxDate={new Date("2023-12-31")} // maximum selectable date is December 31, 2023
-                      dateFormat="yyyy/MM/dd"
+                      maxDate={new Date("2023-12-31")}
                     />
                   </div>
                 </div>

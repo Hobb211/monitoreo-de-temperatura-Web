@@ -56,7 +56,6 @@ export default function User() {
     setShowModalDelete(false);
   };
 
-
   return (
     <div className="pt-2 min-h-screen max-h-full">
       <div className="mx-auto  px-4 py-16 sm:px-8 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -82,9 +81,14 @@ export default function User() {
                 key={asignatura.id}
                 href={"/user/asignatura"}
                 className="group"
-                onClick={() => localStorage.setItem("selectedAsignatura", asignatura.titulo)}
+                onClick={() =>
+                  localStorage.setItem(
+                    "selectedAsignatura",
+                    asignatura.id.toString()
+                  )
+                }
               >
-                <div className="rounded-lg bg-cyan-100 xl:aspect-h-8 xl:aspect-w-7 h-64 hover:bg-cyan-50" >
+                <div className="rounded-lg bg-cyan-100 xl:aspect-h-8 xl:aspect-w-7 h-64 hover:bg-cyan-50">
                   <div className="pt-28 flex items-center justify-center ">
                     {asignatura.titulo}
                   </div>

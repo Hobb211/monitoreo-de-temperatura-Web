@@ -2,13 +2,16 @@
 
 import * as React from "react";
 import ModalDeletedAsigatura from "@/components/modalDeleteAsignatura";
-import { Asignatura, CreateTarea, EliminarAsignatura } from "@/types";
+import { Asignatura, CreateTarea } from "@/types";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ModalCreateTarea from "@/components/modalCreateTarea";
+import tareaService from "@/services/tarea.service";
+import moment from "moment";
+import { format } from "path";
 
 const userAsignaturas = [
   {
@@ -30,16 +33,6 @@ export default function Home() {
   const [showModalCreate, setShowModalCreate] = React.useState(false);
   const [showModalDelete, setShowModalDelete] = React.useState(false);
   const [expanded, setExpanded] = React.useState<string | false>(false);
-  const [asignaturaSelected, setAsignaturaSelected] = React.useState("");
-
-  React.useEffect(() => {
-      const asignaturaStorage = localStorage.getItem("selectedAsignatura");
-      if (asignaturaStorage) {
-        setAsignaturaSelected(asignaturaStorage);
-        console.log(asignaturaSelected);
-      }
-
-  }, []);
 
   // React.useEffect(() => {
   //   userService.getUserAsignaturas().then((response) => {
@@ -60,7 +53,11 @@ export default function Home() {
   // };
 
   const crearTarea = async (dataTarea: CreateTarea) => {
-    console.log(dataTarea);
+    const idAsignatura = localStorage.getItem("selectedAsignatura");
+    if (idAsignatura) {
+      dataTarea.idAsignatura = parseInt(idAsignatura);
+      const resp = await tareaService.createTarea(dataTarea);
+    }
     setShowModalCreate(false);
   };
 
@@ -171,4 +168,3 @@ export default function Home() {
 function getAsignaturaSelected(arg0: () => void) {
   throw new Error("Function not implemented.");
 }
-
