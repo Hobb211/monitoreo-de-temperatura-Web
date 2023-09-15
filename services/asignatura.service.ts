@@ -44,6 +44,19 @@ class AsignaturaService {
     });
     return res.data;
   }
+
+  async getTareas() {
+    const asignaturaStorage = localStorage.getItem("selectedAsignatura");
+    if (asignaturaStorage) {
+      return await axios
+        .get(`${API_URL}/tareas/${asignaturaStorage}`, {
+          headers: authHeader(),
+        })
+        .then((response) => {
+          return response.data;
+        });
+    }
+  }
 }
 
 export default new AsignaturaService();

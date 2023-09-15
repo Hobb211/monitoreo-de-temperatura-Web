@@ -1,8 +1,7 @@
 "use client";
 
 import * as React from "react";
-import ModalDeletedAsigatura from "@/components/modalDeleteAsignatura";
-import { Asignatura, CreateTarea } from "@/types";
+import { CreateTarea, Tarea } from "@/types";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -10,71 +9,34 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ModalCreateTarea from "@/components/modalCreateTarea";
 import tareaService from "@/services/tarea.service";
-import moment from "moment";
-import { format } from "path";
-
-const userAsignaturas = [
-  {
-    titulo: "Hacer backend con graphql",
-    estado: "iniciada",
-    fechaTermino: "20/09/2023",
-  },
-  {
-    titulo: "Hacer Front con graphql",
-    estado: "iniciada",
-    fechaTermino: "20/09/2023",
-  },
-];
+import asignaturaService from "@/services/asignatura.service";
 
 export default function Home() {
-  const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>(
-    []
-  );
+  const [asignaturaTareas, setAsignaturaTareas] = React.useState<Tarea[]>([]);
   const [showModalCreate, setShowModalCreate] = React.useState(false);
   const [showModalDelete, setShowModalDelete] = React.useState(false);
-  const [expanded, setExpanded] = React.useState<string | false>(false);
 
-  // React.useEffect(() => {
-  //   userService.getUserAsignaturas().then((response) => {
-  //     setuserAsignaturas(response);
-  //   });
-  // }, []);
-
-  // const crearTarea = async (dataAsignatura: CreateAsignatura) => {
-  //   try {
-  //     const resp = await asignaturaService.createAsignatura(dataAsignatura);
-  //     const { usuario, ...asignaturaDetail } = resp;
-  //     setuserAsignaturas([...userAsignaturas, asignaturaDetail]);
-  //     setShowModalCreate(false);
-  //     // console.log("Asignatura creada", asignaturaDetail.titulo);
-  //   } catch (error) {
-  //     console.log("Error en la creacion de la asignatura");
-  //   }
-  // };
+  React.useEffect(() => {
+    asignaturaService.getTareas().then((response) => {
+      setAsignaturaTareas(response);
+    });
+  }, []);
 
   const crearTarea = async (dataTarea: CreateTarea) => {
     const idAsignatura = localStorage.getItem("selectedAsignatura");
     if (idAsignatura) {
       dataTarea.idAsignatura = parseInt(idAsignatura);
-      const resp = await tareaService.createTarea(dataTarea);
+      try {
+        const resp = await tareaService.createTarea(dataTarea);
+        const { asignatura, ...tareaDetail } = resp;
+        setAsignaturaTareas([...asignaturaTareas, tareaDetail]);
+        setShowModalCreate(false);
+      } catch (error) {
+        console.log("Error en la creacion de la Tarea");
+      }
     }
     setShowModalCreate(false);
   };
-
-  const userAsignaturass = [
-    {
-      id: 1,
-      titulo: "Hacer backend con graphql",
-      estado: "iniciada",
-      fechaTermino: "20/09/2023",
-    },
-    {
-      id: 2,
-      titulo: "Hacer Front con graphql",
-      estado: "iniciada",
-      fechaTermino: "20/09/2023",
-    },
-  ];
 
   const closeModalCreate = () => {
     setShowModalCreate(false);
@@ -119,23 +81,22 @@ export default function Home() {
           ) : null}
         </div>
 
-        {userAsignaturass.length > 0 ? (
+        {asignaturaTareas.length > 0 ? (
           <div className="mt-6">
-            {userAsignaturass?.map((asignatura) => (
-              <Accordion key={asignatura.id}>
+            {asignaturaTareas?.map((tarea) => (
+              <Accordion key={tarea.id}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1bh-content"
                   id="panel1bh-header"
                 >
                   <Typography sx={{ width: "50%", flexShrink: 0 }}>
-                    {asignatura.titulo}
-                  </Typography>
-                  <Typography sx={{ color: "text.secondary" }}>
-                    {asignatura.estado}
+                    {tarea.descripcion}
                   </Typography>
                 </AccordionSummary>
-                <AccordionDetails>{asignatura.estado}</AccordionDetails>
+                <AccordionDetails>
+                  Fecha de Entrega: {tarea.fechaTermino}
+                </AccordionDetails>
               </Accordion>
             ))}
           </div>
@@ -144,23 +105,6 @@ export default function Home() {
             ¿Tareas por hacer? Gestionalas aquí
           </div>
         )}
-
-        {userAsignaturas.length > 0 ? (
-          <div className="flex justify-end ... pt-24">
-            <button
-              onClick={() => setShowModalDelete(true)}
-              className="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-red-600 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-600 "
-            >
-              Eliminar Tarea
-            </button>
-            {showModalDelete ? (
-              <ModalDeletedAsigatura
-                closeModalDelete={closeModalDelete}
-                // eliminarAsignatura={eliminarAsignatura}
-              />
-            ) : null}
-          </div>
-        ) : null}
       </div>
     </div>
   );

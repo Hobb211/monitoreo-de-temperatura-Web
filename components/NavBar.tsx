@@ -30,7 +30,7 @@ export default function NavBar() {
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" className="flex items-center">
+        <a href="/" className="flex items-center">
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             NottesApp
           </span>
@@ -87,7 +87,7 @@ export default function NavBar() {
               <>
                 <li>
                   <a
-                    href="/"
+                    href="/login"
                     className="bg-cyan-100  active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"
                     type="button"
                   >

@@ -1,6 +1,6 @@
 "use client";
 
-import LoginCard from "@/components/LoginCard";
+import Homepage from "@/components/homepage";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
@@ -21,5 +21,5 @@ export default function Home() {
     }
   }, [userEmail]);
 
-  return <LoginCard></LoginCard>;
+  return <Homepage></Homepage>;
 }
