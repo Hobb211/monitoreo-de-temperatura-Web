@@ -14,15 +14,6 @@ export default function User() {
   const [showModalDelete, setShowModalDelete] = React.useState(false);
 
   React.useEffect(() => {
-    console.log(
-      "variable del local storage",
-      localStorage.getItem("selectedAsignatura")
-    );
-    localStorage.setItem("selectedAsignatura", "");
-    console.log(
-      "variable del local storage",
-      localStorage.getItem("selectedAsignatura")
-    );
     userService.getUserAsignaturas().then((response) => {
       setuserAsignaturas(response);
     });

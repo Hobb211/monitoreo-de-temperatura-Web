@@ -8,18 +8,15 @@ import { RootState } from "@/redux/store";
 
 export default function Home() {
   const router = useRouter();
-  const userEmail = useAppSelector(
-    (state: RootState) => state.authentication.userInfo?.email
-  );
-  const accestoken = useAppSelector(
-    (state: RootState) => state.authentication.userInfo?.token
+  const currentUser = useAppSelector(
+    (state: RootState) => state.authentication.userInfo
   );
 
   useEffect((): void => {
-    if (userEmail && accestoken) {
+    if (currentUser) {
       router.push("/user");
     }
-  }, [userEmail]);
+  }, [currentUser]);
 
   return <Homepage></Homepage>;
 }

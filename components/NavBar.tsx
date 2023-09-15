@@ -22,9 +22,9 @@ export default function NavBar() {
   const router = useRouter();
 
   const logout = () => {
-    setisLoggin(false);
     dispatch(authlogout());
-    router.push("/");
+    setisLoggin(false);
+    router.push("/login");
   };
 
   return (
@@ -74,7 +74,7 @@ export default function NavBar() {
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="/login"
                     onClick={logout}
                     className="bg-gray-900 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none  mb-1 ease-linear transition-all duration-150"
                     type="button"
