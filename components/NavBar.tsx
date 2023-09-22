@@ -65,6 +65,15 @@ export default function NavBar() {
               <>
                 <li>
                   <a
+                    href="/user"
+                    className="bg-cyan-100 active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+                    type="button"
+                  >
+                    Asignaturas
+                  </a>
+                </li>
+                <li>
+                  <a
                     href="#"
                     className="bg-cyan-100 active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
                     type="button"
