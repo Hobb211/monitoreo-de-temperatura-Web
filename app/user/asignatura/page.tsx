@@ -1,63 +1,56 @@
 "use client";
-
+import ModalCreateAsigatura from "@/components/modalCreateAsignatura";
+import ModalDeletedAsigatura from "@/components/modalDeleteAsignatura";
+import userService from "@/services/user.service";
 import * as React from "react";
-import { CreateTarea, Tarea } from "@/types";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ModalCreateTarea from "@/components/modalCreateTarea";
-import tareaService from "@/services/tarea.service";
+import { Asignatura, CreateAsignatura, EliminarAsignatura } from "@/types";
 import asignaturaService from "@/services/asignatura.service";
 
-export default function Home() {
-  const [asignaturaTareas, setAsignaturaTareas] = React.useState<Tarea[]>([]);
+export default function User() {
+  const [userAsignaturas, setuserAsignaturas] = React.useState<Asignatura[]>(
+    []
+  );
   const [showModalCreate, setShowModalCreate] = React.useState(false);
   const [showModalDelete, setShowModalDelete] = React.useState(false);
 
   React.useEffect(() => {
-    asignaturaService.getTareas().then((response) => {
-      setAsignaturaTareas(response);
+    userService.getUserAsignaturas().then((response) => {
+      setuserAsignaturas(response);
     });
   }, []);
 
-  const crearTarea = async (dataTarea: CreateTarea) => {
-    const idAsignatura = localStorage.getItem("selectedAsignatura");
-    if (idAsignatura) {
-      dataTarea.idAsignatura = parseInt(idAsignatura);
-      try {
-        const resp = await tareaService.createTarea(dataTarea);
-        const { asignatura, ...tareaDetail } = resp;
-        setAsignaturaTareas([...asignaturaTareas, tareaDetail]);
-        setShowModalCreate(false);
-      } catch (error) {
-        console.log("Error en la creacion de la Tarea");
-      }
+  const crearAsignatura = async (dataAsignatura: CreateAsignatura) => {
+    try {
+      const resp = await asignaturaService.createAsignatura(dataAsignatura);
+      const { usuario, ...asignaturaDetail } = resp;
+      setuserAsignaturas([...userAsignaturas, asignaturaDetail]);
+      setShowModalCreate(false);
+      // console.log("Asignatura creada", asignaturaDetail.titulo);
+    } catch (error) {
+      console.log("Error en la creacion de la asignatura");
     }
-    setShowModalCreate(false);
   };
 
   const closeModalCreate = () => {
     setShowModalCreate(false);
   };
 
-  // const eliminarAsignatura = async (dataAsignatura: EliminarAsignatura) => {
-  //   const idAsignatura = dataAsignatura.id;
-  //   try {
-  //     const AsignaturaDeleted = await asignaturaService.eliminarAsignatura(
-  //       idAsignatura
-  //     );
-  //     setuserAsignaturas(
-  //       userAsignaturas.filter(
-  //         (asignatura) => asignatura.id !== AsignaturaDeleted.id
-  //       )
-  //     );
-  //     setShowModalDelete(false);
-  //   } catch (error) {
-  //     console.log("Error en la Eliminacion de la asignatura");
-  //   }
-  // };
+  const eliminarAsignatura = async (dataAsignatura: EliminarAsignatura) => {
+    const idAsignatura = dataAsignatura.id;
+    try {
+      const AsignaturaDeleted = await asignaturaService.eliminarAsignatura(
+        idAsignatura
+      );
+      setuserAsignaturas(
+        userAsignaturas.filter(
+          (asignatura) => asignatura.id !== AsignaturaDeleted.id
+        )
+      );
+      setShowModalDelete(false);
+    } catch (error) {
+      console.log("Error en la Eliminacion de la asignatura");
+    }
+  };
 
   const closeModalDelete = () => {
     setShowModalDelete(false);
@@ -71,44 +64,64 @@ export default function Home() {
             onClick={() => setShowModalCreate(true)}
             className="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-600"
           >
-            Agregar Tareas
+            Agregar Asignatura
           </button>
           {showModalCreate ? (
-            <ModalCreateTarea
+            <ModalCreateAsigatura
               closeModalCreate={closeModalCreate}
-              crearTarea={crearTarea}
+              crearAsignatura={crearAsignatura}
             />
           ) : null}
         </div>
 
-        {asignaturaTareas.length > 0 ? (
-          <div className="mt-6">
-            {asignaturaTareas?.map((tarea) => (
-              <Accordion key={tarea.id}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1bh-content"
-                  id="panel1bh-header"
-                >
-                  <Typography sx={{ width: "50%", flexShrink: 0 }}>
-                    {tarea.descripcion}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Fecha de Entrega: {tarea.fechaTermino}
-                </AccordionDetails>
-              </Accordion>
+        {userAsignaturas.length > 0 ? (
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-2 pt-20 sm:mb-98">
+            {userAsignaturas.map((asignatura: Asignatura) => (
+              <a
+                key={asignatura.id}
+                href={"/user/asignatura/tarea"}
+                className="group"
+                onClick={() =>
+                  localStorage.setItem(
+                    "selectedAsignatura",
+                    asignatura.id.toString()
+                  )
+                }
+              >
+                <div className="rounded-lg bg-cyan-100 xl:aspect-h-8 xl:aspect-w-7 h-64 hover:bg-cyan-50">
+                  <div className="pt-28 flex items-center justify-center ">
+                    {asignatura.titulo}
+                  </div>
+                  <div className="pt-2 flex items-center justify-center ">
+                    {asignatura.sala}
+                  </div>
+                </div>
+              </a>
             ))}
           </div>
         ) : (
           <div className="flex justify-center ... pt-24">
-            ¿Tareas por hacer? Gestionalas aquí
+            Comienza Agregando Asignaturas
           </div>
         )}
+
+        {userAsignaturas.length > 0 ? (
+          <div className="flex justify-end ... pt-24">
+            <button
+              onClick={() => setShowModalDelete(true)}
+              className="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-red-600 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-600 "
+            >
+              Eliminar Asignatura
+            </button>
+            {showModalDelete ? (
+              <ModalDeletedAsigatura
+                closeModalDelete={closeModalDelete}
+                eliminarAsignatura={eliminarAsignatura}
+              />
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </div>
   );
-}
-function getAsignaturaSelected(arg0: () => void) {
-  throw new Error("Function not implemented.");
 }

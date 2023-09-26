@@ -27,7 +27,7 @@ export default function LoginCard() {
   const onSubmit = handleSubmit(async (data) => {
     const response = await dispatch(authLogin(data));
     if (response.token) {
-      router.push("/user");
+      router.push("/user/asignatura");
     } else {
       setErrorMessage(response.response.data.message);
     }

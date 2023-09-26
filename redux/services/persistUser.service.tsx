@@ -10,7 +10,6 @@ export const removeUserFromLocalStorage = (): void =>
 
 export const getUserFromLocalStorage = (): User | undefined => {
   if (typeof window !== "undefined") {
-    // do localStorage stuff here
     const userInfo: User | undefined = localStorage.getItem(USER_INFO)
       ? JSON.parse(localStorage.getItem(USER_INFO)!)
       : undefined;

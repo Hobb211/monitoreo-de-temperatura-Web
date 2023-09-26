@@ -20,6 +20,15 @@ class TareaService {
     );
     return res.data;
   }
+
+  async eliminarAsignatura(idTarea: number) {
+    const id = idTarea;
+    const res = await axios.delete(API_URL, {
+      headers: authHeader(),
+      data: { id },
+    });
+    return res.data;
+  }
 }
 
 export default new TareaService();
