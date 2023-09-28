@@ -27,7 +27,7 @@ export default function RegisterCard() {
   const onSubmit = handleSubmit(async (data) => {
     const response = await dispatch(authRegister(data));
     if (response.token) {
-      router.push("/user");
+      router.push("/user/asignatura");
     } else {
       setErrorMessage(response.response.data.message);
     }
@@ -84,7 +84,7 @@ export default function RegisterCard() {
               {errors.password && <span>Field is a required</span>}
             </div>
             <div className="mt-12">
-            <button
+              <button
                 type="submit"
                 className="justify-center items-center flex bg-gray-900 w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-900 h-12"
                 disabled={isloading}
@@ -104,7 +104,9 @@ export default function RegisterCard() {
                       />
                     </svg>
                   </div>
-                ) : ( <div>Register</div> )}
+                ) : (
+                  <div>Register</div>
+                )}
               </button>
               {errorMessage && (
                 <div className="form-group">
@@ -121,7 +123,7 @@ export default function RegisterCard() {
           <p className="mt-4 text-sm text-center text-gray-900">
             Have an Account ?{" "}
             <Link
-              href="/"
+              href="/login"
               className="font-medium text-blue-600 hover:underline"
             >
               Login Here

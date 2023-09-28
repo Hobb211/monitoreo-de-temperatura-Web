@@ -57,6 +57,16 @@ class AsignaturaService {
         });
     }
   }
+
+  async getAsignaturaById(idAsignatura: number) {
+    return await axios
+      .get(`${API_URL}/${idAsignatura}`, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        return response.data;
+      });
+  }
 }
 
 export default new AsignaturaService();

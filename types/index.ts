@@ -34,6 +34,10 @@ export interface EliminarAsignatura {
   id: number;
 }
 
+export interface EliminarTarea {
+  id: number;
+}
+
 export interface Tarea {
   id: number;
   descripcion: string;
@@ -47,4 +51,10 @@ export interface CreateTarea {
   descripcion: string;
   idAsignatura: number;
   fechaTermino: string;
+}
+
+export interface UpdateTarea {
+  descripcion: string;
+  fechaTermino: string;
+  estado: string;
 }
