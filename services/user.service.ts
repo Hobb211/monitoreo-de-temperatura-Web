@@ -17,9 +17,6 @@ class UserService {
       });
   }
 
-  async createAsignatura(eliminarAsignatura: EliminarAsignatura) {
-    return [];
-  }
 }
 
 export default new UserService();

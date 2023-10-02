@@ -12,6 +12,7 @@ export default function User() {
   );
   const [showModalCreate, setShowModalCreate] = React.useState(false);
   const [showModalDelete, setShowModalDelete] = React.useState(false);
+  const [ isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     userService.getUserAsignaturas().then((response) => {
@@ -100,6 +101,8 @@ export default function User() {
             ))}
           </div>
         ) : (
+
+          
           <div className="flex justify-center ... pt-24">
             Comienza Agregando Asignaturas
           </div>

@@ -95,8 +95,10 @@ export default function LoginCard() {
                 )}
               </button>
               {errorMessage && (
-                <div className="mt-4">
-                  <Alert color="red">{errorMessage}</Alert>
+                <div className="mt-4  text-base text-red-600 text-center text-gray-700">
+                <Alert color="red" className="ps-16">
+                    {errorMessage}
+                  </Alert>
                 </div>
               )}
             </div>
