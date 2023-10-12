@@ -109,13 +109,11 @@ export default function RegisterCard() {
                 )}
               </button>
               {errorMessage && (
-                <div className="form-group">
                   <div className="mt-4  text-base text-red-600 text-center text-gray-700">
                     <Alert color="red" className="ps-16">
                       {errorMessage}
                     </Alert>
                   </div>
-                </div>
               )}
             </div>
           </form>
