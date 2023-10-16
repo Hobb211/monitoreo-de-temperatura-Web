@@ -90,7 +90,7 @@ export default function Home() {
     if (idTarea) {
       const idtarea = parseInt(idTarea);
       try {
-        const tareaDeleted = await tareaService.deleteTarea(idtarea);
+        const tareaDeleted = await tareaService.eliminarTarea(idtarea);
         setAsignaturaTareas(
           asignaturaTareas.filter((tarea) => tarea.id !== tareaDeleted.id)
         );

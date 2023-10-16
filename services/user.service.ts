@@ -1,15 +1,14 @@
 import axios from "axios";
 import authHeader from "./auth.header";
 import { getUserFromLocalStorage } from "@/redux/services/persistUser.service";
-import { EliminarAsignatura } from "@/types";
 
-const API_URL = "http://localhost:3000/api/usuario";
+const API_URL = "http://localhost:3000/api/usuarios";
 
 class UserService {
   async getUserAsignaturas() {
     const userEmail = getUserFromLocalStorage()?.email;
     return await axios
-      .get(`${API_URL}/${userEmail}`, {
+      .get(`${API_URL}/${userEmail}/asignaturas`, {
         headers: authHeader(),
       })
       .then((response) => {

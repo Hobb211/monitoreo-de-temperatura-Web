@@ -3,7 +3,7 @@ import authHeader from "./auth.header";
 import { getUserFromLocalStorage } from "@/redux/services/persistUser.service";
 import { CreateAsignatura } from "@/types";
 
-const API_URL = "http://localhost:3000/api/asignatura";
+const API_URL = "http://localhost:3000/api/asignaturas";
 
 class AsignaturaService {
   async getUserAsignaturas() {
@@ -36,11 +36,18 @@ class AsignaturaService {
     return res.data;
   }
 
+  // async eliminarAsignatura(idAsignatura: number) {
+  //   const id = idAsignatura;
+  //   const res = await axios.delete(API_URL, {
+  //     headers: authHeader(),
+  //     data: { id },
+  //   });
+  //   return res.data;
+  // }
+
   async eliminarAsignatura(idAsignatura: number) {
-    const id = idAsignatura;
-    const res = await axios.delete(API_URL, {
-      headers: authHeader(),
-      data: { id },
+    const res = await axios.delete(`${API_URL}/${idAsignatura}`, {
+      headers: authHeader()
     });
     return res.data;
   }
@@ -49,7 +56,7 @@ class AsignaturaService {
     const asignaturaStorage = localStorage.getItem("selectedAsignatura");
     if (asignaturaStorage) {
       return await axios
-        .get(`${API_URL}/tareas/${asignaturaStorage}`, {
+        .get(`${API_URL}/${asignaturaStorage}/tareas`, {
           headers: authHeader(),
         })
         .then((response) => {
@@ -60,7 +67,7 @@ class AsignaturaService {
 
   async getAsignaturaById(idAsignatura: number) {
     return await axios
-      .get(`${API_URL}/${idAsignatura}`, {
+      .get(`${API_URL}/find/${idAsignatura}`, {
         headers: authHeader(),
       })
       .then((response) => {
