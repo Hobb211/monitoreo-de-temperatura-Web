@@ -34,9 +34,9 @@ export default function RegisterCard() {
   });
 
   return (
-    <div className="h-screen mb-36">
+    <div className="h-screen bg-[url('../public/images/homepage.jpg')] bg-cover bg-center bg-no-repeat">
       <div className="relative flex flex-col items-center justify-center overflow-hidden pt-36 ">
-        <div className="w-86 p-8 bg-cyan-100 rounded-md shadow-md lg:max-w-xl pt-20 ">
+        <div className="w-96 p-8 bg-cyan-100 rounded-md shadow-md lg:max-w-xl pt-20 ">
           <h1 className="text-3xl font-bold text-center text-gray-900">
             Register
           </h1>
@@ -109,11 +109,11 @@ export default function RegisterCard() {
                 )}
               </button>
               {errorMessage && (
-                  <div className="mt-4  text-base text-red-600 text-center text-gray-700">
-                    <Alert color="red" className="ps-16">
-                      {errorMessage}
-                    </Alert>
-                  </div>
+                <div className="mt-4  text-base text-red-600 text-center text-gray-700">
+                  <Alert color="red" className="ps-16">
+                    {errorMessage}
+                  </Alert>
+                </div>
               )}
             </div>
           </form>

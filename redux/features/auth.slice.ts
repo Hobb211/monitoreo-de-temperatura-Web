@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService from "@/services/auth.service";
 import { RootState } from "../store";
-import { User } from "@/types";
+import { Auth, User, userRegister } from "@/types";
 import {
   getUserFromLocalStorage,
   removeUserFromLocalStorage,
@@ -53,7 +53,7 @@ export const authenticationSlice = createSlice({
   },
 });
 
-export const authLogin = (userData: any) => async (dispatch: any) => {
+export const authLogin = (userData: Auth) => async (dispatch: any) => {
   try {
     dispatch(request());
     const authData = await authService.login(userData);
@@ -66,18 +66,19 @@ export const authLogin = (userData: any) => async (dispatch: any) => {
   }
 };
 
-export const authRegister = (userData: any) => async (dispatch: any) => {
-  try {
-    dispatch(request());
-    const authData = await authService.register(userData);
-    dispatch(success(authData));
-    setUserLocalStorage(authData);
-    return authData;
-  } catch (error: any) {
-    dispatch(fail(error.response.data.message));
-    return error;
-  }
-};
+export const authRegister =
+  (userData: userRegister) => async (dispatch: any) => {
+    try {
+      dispatch(request());
+      const authData = await authService.register(userData);
+      dispatch(success(authData));
+      setUserLocalStorage(authData);
+      return authData;
+    } catch (error: any) {
+      dispatch(fail(error.response.data.message));
+      return error;
+    }
+  };
 
 export const authlogout = () => async (dispatch: any) => {
   dispatch(logout());

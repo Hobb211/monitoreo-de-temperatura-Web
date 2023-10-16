@@ -12,7 +12,7 @@ export default function User() {
   );
   const [showModalCreate, setShowModalCreate] = React.useState(false);
   const [showModalDelete, setShowModalDelete] = React.useState(false);
-  const [ isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
     userService.getUserAsignaturas().then((response) => {
@@ -58,12 +58,12 @@ export default function User() {
   };
 
   return (
-    <div className="pt-2 min-h-screen max-h-full">
+    <div className="pt-2 min-h-screen max-h-full bg-[url('../public/images/homepage.jpg')] bg-cover bg-center bg-no-repeat">
       <div className="mx-auto  px-4 py-16 sm:px-8 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex justify-end ...">
           <button
             onClick={() => setShowModalCreate(true)}
-            className="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-600"
+            className="px-4 py-2 tracking-wide text-black transition-colors duration-200 transform bg-cyan-100 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-600"
           >
             Agregar Asignatura
           </button>
@@ -101,9 +101,7 @@ export default function User() {
             ))}
           </div>
         ) : (
-
-          
-          <div className="flex justify-center ... pt-24">
+          <div className="flex justify-center ... pt-24 text-cyan-100">
             Comienza Agregando Asignaturas
           </div>
         )}

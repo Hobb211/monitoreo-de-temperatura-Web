@@ -132,17 +132,17 @@ export default function Home() {
   // };
 
   return (
-    <div className="pt-2 min-h-screen max-h-full">
+    <div className="pt-2 min-h-screen max-h-full max-h-full bg-[url('../public/images/homepage.jpg')] bg-cover bg-center bg-no-repeat">
       <div className="mx-auto  px-4 py-16 sm:px-8 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex justify-center ">
-          <h2 className="font-mono text-xl sm:text-3xl">
+          <h2 className="font-mono text-xl sm:text-3xl text-cyan-100">
             {asignaturaSelected}
           </h2>
         </div>
         <div className="flex justify-end mt-6 ... ">
           <button
             onClick={() => setShowModalCreate(true)}
-            className="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-900 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-600"
+            className="px-4 py-2 tracking-wide text-black transition-colors duration-200 transform bg-cyan-100 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-gray-600"
           >
             Agregar Tareas
           </button>
@@ -224,7 +224,7 @@ export default function Home() {
             ))}
           </div>
         ) : (
-          <div className="flex justify-center ... pt-24">
+          <div className="flex justify-center ... pt-24 text-cyan-100">
             ¿Tareas por hacer? Gestionalas aquí
           </div>
         )}
