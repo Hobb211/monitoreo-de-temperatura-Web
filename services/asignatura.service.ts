@@ -21,7 +21,7 @@ class AsignaturaService {
     const { titulo, instructor, sala, nrc } = createAsignatura;
     const userEmail = getUserFromLocalStorage()?.email;
     const res = await axios.post(
-      API_URL,
+      `${API_URL}/add`,
       {
         titulo,
         instructor,
