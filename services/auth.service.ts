@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Auth, userRegister } from "@/types";
 
-const API_URL = "http://localhost:3000/api/auth/";
+const API_URL = "http://localhost:4000/auth/";
 
 class AuthService {
   async login(userlogin: Auth) {

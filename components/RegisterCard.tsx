@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { userRegister } from "@/types";
 import { useRouter } from "next/navigation";
-import { Alert, Button } from "@material-tailwind/react";
+import { Alert } from "@material-tailwind/react";
 import { authRegister } from "@/redux/features/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
@@ -27,14 +27,14 @@ export default function RegisterCard() {
   const onSubmit = handleSubmit(async (data) => {
     const response = await dispatch(authRegister(data));
     if (response.token) {
-      router.push("/user/asignatura");
+      router.push("/monitoreo");
     } else {
       setErrorMessage(response.response.data.message);
     }
   });
 
   return (
-    <div className="h-screen bg-[url('../public/images/homepage.jpg')] bg-cover bg-center bg-no-repeat">
+    <div className="h-screen">
       <div className="relative flex flex-col items-center justify-center overflow-hidden pt-36 ">
         <div className="w-96 p-8 bg-cyan-100 rounded-md shadow-md lg:max-w-xl pt-20 ">
           <h1 className="text-3xl font-bold text-center text-gray-900">

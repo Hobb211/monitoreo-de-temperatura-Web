@@ -9,8 +9,9 @@ import { authlogout } from "@/redux/features/auth.slice";
 export default function NavBar() {
   const [isLoggin, setisLoggin] = React.useState(false);
   const userEmail = useAppSelector(
-    (state: RootState) => state.authentication.userInfo?.email
+    (state: RootState) => state.authentication.userInfo?.user.email
   );
+
   const dispatch = useAppDispatch();
 
   useEffect((): void => {
@@ -32,7 +33,7 @@ export default function NavBar() {
       <div className="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="#" className="flex items-center">
           <span className="self-center text-2xl font-semibold whitespace-nowrap text-cyan-100">
-            <h1>NottesApp</h1>
+            <h1>Monitoreo</h1>
           </span>
         </a>
         <button
@@ -63,15 +64,6 @@ export default function NavBar() {
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-gray-800 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             {isLoggin ? (
               <>
-                <li>
-                  <a
-                    href="/user/asignatura"
-                    className="bg-cyan-100 active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    Asignaturas
-                  </a>
-                </li>
                 <li>
                   <a
                     href="/user"

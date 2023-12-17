@@ -14,7 +14,7 @@ export default function Home() {
 
   useEffect((): void => {
     if (currentUser) {
-      router.push("/user");
+      router.push("/monitoreo");
     }
   }, [currentUser]);
 

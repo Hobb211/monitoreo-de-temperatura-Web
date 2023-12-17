@@ -5,7 +5,8 @@ export interface Auth {
 
 export interface User {
   email: string;
-  token: string;
+  fullName: string;
+  user: User;
 }
 
 export interface userRegister {
@@ -45,6 +46,12 @@ export interface Tarea {
   fechaTermino: string;
   estado: string;
   asignaturaId: number;
+}
+
+export interface Departamento {
+  departamento: number;
+  ultima_medicion: string;
+  temperatura: number;
 }
 
 export interface CreateTarea {

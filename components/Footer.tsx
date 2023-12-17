@@ -4,7 +4,7 @@ const Footer = () => (
       <span className="text-sm text-gray-100 sm:text-center dark:text-gray-400">
         © 2023{" "}
         <a href="#" className="hover:underline">
-          NottesApp
+          Monitoreo
         </a>
         . All Rights Reserved.
       </span>
