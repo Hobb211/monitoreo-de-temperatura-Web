@@ -62,11 +62,13 @@ export interface DepartamentoLogs {
   TMin: string;
   TMax: string;
   TIdeal: string;
-  logs: Logs[];
+  Logs: Logs[];
 }
 
 export interface Logs {
+  Id: string;
   Log: string;
   Type: string;
   Visibility: string;
+  Timestamp: string;
 }

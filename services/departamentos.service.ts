@@ -9,6 +9,14 @@ class DepartamentoService {
     });
   }
 
+  async getInfoDepto(departamento: number) {
+    return await axios
+      .get(`${DEPARTAMENTOS_URL}/read-departament/${departamento}`, {})
+      .then((response) => {
+        return response.data;
+      });
+  }
+
   // async getTemperaturasDptos() {
   //   return await axios
   //     .get(`${DEPARTAMENTOS_URL}/get-departaments`, {})
