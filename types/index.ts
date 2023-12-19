@@ -52,16 +52,21 @@ export interface Departamento {
   departamento: number;
   ultima_medicion: string;
   temperatura: number;
+  TMin: string;
+  TMax: string;
+  TIdeal: string;
 }
 
-export interface CreateTarea {
-  descripcion: string;
-  idAsignatura: number;
-  fechaTermino: string;
+export interface DepartamentoLogs {
+  Numero: string;
+  TMin: string;
+  TMax: string;
+  TIdeal: string;
+  logs: Logs[];
 }
 
-export interface UpdateTarea {
-  descripcion: string;
-  fechaTermino: string;
-  estado: string;
+export interface Logs {
+  Log: string;
+  Type: string;
+  Visibility: string;
 }

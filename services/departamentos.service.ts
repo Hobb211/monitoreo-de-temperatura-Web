@@ -8,6 +8,14 @@ class DepartamentoService {
       return response.data;
     });
   }
+
+  // async getTemperaturasDptos() {
+  //   return await axios
+  //     .get(`${DEPARTAMENTOS_URL}/get-departaments`, {})
+  //     .then((response) => {
+  //       return response.data;
+  //     });
+  // }
 }
 
 export default new DepartamentoService();

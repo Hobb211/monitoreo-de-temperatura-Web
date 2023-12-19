@@ -13,6 +13,11 @@ export default function page() {
     });
   }, []);
 
+  // function refrescar(tiempo: number) {
+  //   setTimeout("location.reload(true)", tiempo);
+  // }
+  // refrescar(30000);
+
   return (
     <div className="pt-2 min-h-screen ">
       <div className="mx-auto px-4 py-16 sm:px-8 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -21,17 +26,23 @@ export default function page() {
             {Departamentos.map((departamento: any) => (
               <a
                 key={departamento.departamento}
+                onClick={() =>
+                  localStorage.setItem(
+                    "selectedDepartamento",
+                    departamento.departamento.toString()
+                  )
+                }
                 href={"/departamento"}
                 className="group"
               >
-                {departamento.temperatura > 18.5 ? (
-                  <div className="rounded-lg bg-red-100 xl:aspect-h-8 xl:aspect-w-7 h-20 hover:bg-cyan-50">
+                {departamento.temperatura > departamento.TMax ? (
+                  <div className="rounded-lg bg-red-200 xl:aspect-h-8 xl:aspect-w-7 h-20 hover:bg-cyan-50">
                     <div className="pt-8 flex items-center justify-center ">
                       {departamento.departamento}
                     </div>
                   </div>
                 ) : (
-                  <div className="rounded-lg bg-cyan-100 xl:aspect-h-8 xl:aspect-w-7 h-20 hover:bg-cyan-50">
+                  <div className="rounded-lg bg-green-100 xl:aspect-h-8 xl:aspect-w-7 h-20 hover:bg-cyan-50">
                     <div className="pt-8 flex items-center justify-center ">
                       {departamento.departamento}
                     </div>
@@ -41,7 +52,7 @@ export default function page() {
             ))}
           </div>
         ) : (
-          <div className="flex justify-center ... pt-24 text-cyan-100">
+          <div className="flex justify-center ... pt-24 text-black-100">
             Cargando informacion de departamentos...
           </div>
         )}

@@ -3,12 +3,12 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { userRegister } from "@/types";
 import { useRouter } from "next/navigation";
 import { Alert } from "@material-tailwind/react";
 import { authRegister } from "@/redux/features/auth.slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
+import { userRegister } from "@/types";
 
 export default function RegisterCard() {
   const {
@@ -26,7 +26,8 @@ export default function RegisterCard() {
 
   const onSubmit = handleSubmit(async (data) => {
     const response = await dispatch(authRegister(data));
-    if (response.token) {
+    console.log(response);
+    if (response.access_token) {
       router.push("/monitoreo");
     } else {
       setErrorMessage(response.response.data.message);
