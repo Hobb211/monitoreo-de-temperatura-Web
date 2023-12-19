@@ -37,13 +37,21 @@ export default function page() {
               >
                 {departamento.temperatura >= departamento.TMin &&
                 departamento.TMax >= departamento.temperatura ? (
-                  <div className="rounded-lg bg-red-200 xl:aspect-h-8 xl:aspect-w-7 h-20 hover:bg-cyan-50">
+                  <div
+                    className="rounded-lg bg-green-100 xl:aspect-h-8 xl:aspect-w-7 h-20 hover:bg-cyan-50"
+                    onClick={() =>
+                      localStorage.setItem(
+                        "TemperaturaDepartamento",
+                        departamento.temperatura
+                      )
+                    }
+                  >
                     <div className="pt-8 flex items-center justify-center ">
                       {departamento.departamento}
                     </div>
                   </div>
                 ) : (
-                  <div className="rounded-lg bg-green-100 xl:aspect-h-8 xl:aspect-w-7 h-20 hover:bg-cyan-50">
+                  <div className="rounded-lg bg-red-300 xl:aspect-h-8 xl:aspect-w-7 h-20 hover:bg-cyan-50">
                     <div className="pt-8 flex items-center justify-center ">
                       {departamento.departamento}
                     </div>
