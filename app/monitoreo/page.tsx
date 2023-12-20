@@ -55,6 +55,15 @@ export default function page() {
                     <div className="pt-8 flex items-center justify-center ">
                       {departamento.departamento}
                     </div>
+                    {departamento.temperatura >= departamento.TMax ? (
+                      <div className="flex items-center justify-center ">
+                        T Max
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-center ">
+                        T Min
+                      </div>
+                    )}
                   </div>
                 )}
               </a>
